@@ -1,6 +1,6 @@
 # Jetpack-Compose
 
-Jetpack Compose 사용해보기
+Jetpack-Compose 사용해보기
 
 ## ComposeEx
 
