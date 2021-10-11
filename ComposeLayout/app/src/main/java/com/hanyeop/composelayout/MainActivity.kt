@@ -37,39 +37,6 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun PhotographerCard(modifier: Modifier = Modifier) {
-    Row(
-        modifier
-            .padding(8.dp)
-            .clip(RoundedCornerShape(4.dp))
-            .background(color = MaterialTheme.colors.surface)
-            .clickable(onClick = { /* Ignoring onClick */ })
-            .padding(16.dp)
-
-    ) {
-        Surface(
-            modifier = Modifier.size(50.dp),
-            shape = CircleShape,
-            color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f)
-        ) {
-            // Image goes here
-        }
-
-        Column(
-            modifier = Modifier
-                .padding(start = 8.dp)
-                .align(Alignment.CenterVertically)
-        ) {
-            Text("안드로이드", fontWeight = FontWeight.Bold)
-            // LocalContentAlpha is defining opacity level of its children
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                Text("3 minutes ago", style = MaterialTheme.typography.body2)
-            }
-        }
-    }
-}
-
-@Composable
 fun Greeting(name: String) {
     Text(text = "Hello $name!")
 }
@@ -77,7 +44,8 @@ fun Greeting(name: String) {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    ComposeLayoutTheme { // 프로젝트명 Theme
-        PhotographerCard()
+    ComposeLayoutTheme {
+        Greeting("Android")
     }
 }
+
