@@ -1,5 +1,6 @@
 package com.hanyeop.composelayout
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -14,6 +15,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,6 +38,7 @@ fun PhotographerCard(modifier: Modifier = Modifier) {
             color = MaterialTheme.colors.onSurface.copy(alpha = 0.2f)
         ) {
             // Image goes here
+            Image(painter = painterResource(id = R.drawable.ic_baseline_heart_broken_24), contentDescription = "")
         }
 
         Column(
