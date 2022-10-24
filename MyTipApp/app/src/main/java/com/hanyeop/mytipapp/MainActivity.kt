@@ -1,6 +1,7 @@
 package com.hanyeop.mytipapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -12,6 +13,9 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,12 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hanyeop.mytipapp.components.InputField
 import com.hanyeop.mytipapp.ui.theme.MyTipAppTheme
+import com.hanyeop.mytipapp.widgets.RoundIconButton
 
 @ExperimentalComposeUiApi
 class MainActivity : ComponentActivity() {
@@ -81,14 +85,25 @@ fun TopHeader(totalPerPerson: Double = 134.0) {
     }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
+@ExperimentalComposeUiApi
 @Preview
 @Composable
 fun MainContent() {
+    BillForm() { billAmt ->
+        Log.d("test5", "MainContent: $billAmt")
+    }
+}
+
+@ExperimentalComposeUiApi
+@Composable
+fun BillForm(
+    modifier: Modifier = Modifier,
+    onValueChange: (String) -> Unit = {}
+) {
     val totalBillState = remember {
         mutableStateOf("")
     }
-    val validState = remember(totalBillState.value){
+    val validState = remember(totalBillState.value) {
         totalBillState.value.trim().isNotEmpty()
     }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -100,20 +115,50 @@ fun MainContent() {
         shape = RoundedCornerShape(corner = CornerSize(8.dp)),
         border = BorderStroke(width = 1.dp, color = Color.LightGray)
     ) {
-
-        Column() {
+        Column(
+            modifier = Modifier.padding(6.dp),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.Start
+        ) {
             InputField(
                 valueState = totalBillState,
                 labelId = "Enter Bill",
                 enabled = true,
                 isSingleLine = true,
-                onAction = KeyboardActions{
-                    if(!validState) return@KeyboardActions
-                    // Todo - onvaluechanged
+                onAction = KeyboardActions {
+                    if (!validState) return@KeyboardActions
+                    onValueChange(totalBillState.value.trim())
 
                     keyboardController?.hide()
                 }
             )
+            if (validState) {
+                Row(
+                    modifier = Modifier.padding(3.dp),
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    Text(
+                        text = "Split", modifier = Modifier.align(
+                            alignment = Alignment.CenterVertically
+                        )
+                    )
+                    Spacer(modifier = Modifier.width(20.dp))
+                    Row(
+                        modifier = Modifier.padding(horizontal = 3.dp),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        RoundIconButton(imageVector = Icons.Default.Remove,
+                            onClick = { /*TODO*/ })
+
+                        RoundIconButton(imageVector = Icons.Default.Add,
+                            onClick = { /*TODO*/ })
+                    }
+                }
+            } else {
+                Box() {
+
+                }
+            }
         }
     }
 }
