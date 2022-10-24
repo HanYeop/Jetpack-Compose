@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Slider
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -107,10 +108,13 @@ fun BillForm(
         totalBillState.value.trim().isNotEmpty()
     }
     val keyboardController = LocalSoftwareKeyboardController.current
+    val sliderPositionState = remember {
+        mutableStateOf(0f)
+    }
 
     Surface(
         modifier = Modifier
-            .padding(2.dp)
+            .padding(10.dp)
             .fillMaxWidth(),
         shape = RoundedCornerShape(corner = CornerSize(8.dp)),
         border = BorderStroke(width = 1.dp, color = Color.LightGray)
@@ -132,33 +136,72 @@ fun BillForm(
                     keyboardController?.hide()
                 }
             )
-            if (validState) {
-                Row(
-                    modifier = Modifier.padding(3.dp),
-                    horizontalArrangement = Arrangement.Start
-                ) {
-                    Text(
-                        text = "Split", modifier = Modifier.align(
-                            alignment = Alignment.CenterVertically
-                        )
+//            if (validState) {
+            Row(
+                modifier = Modifier.padding(3.dp),
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Text(
+                    text = "Split", modifier = Modifier.align(
+                        alignment = Alignment.CenterVertically
                     )
-                    Spacer(modifier = Modifier.width(20.dp))
-                    Row(
-                        modifier = Modifier.padding(horizontal = 3.dp),
-                        horizontalArrangement = Arrangement.End
-                    ) {
-                        RoundIconButton(imageVector = Icons.Default.Remove,
-                            onClick = { /*TODO*/ })
+                )
+                Spacer(modifier = Modifier.width(120.dp))
+                Row(
+                    modifier = Modifier.padding(horizontal = 3.dp),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    RoundIconButton(imageVector = Icons.Default.Remove,
+                        onClick = { /*TODO*/ })
 
-                        RoundIconButton(imageVector = Icons.Default.Add,
-                            onClick = { /*TODO*/ })
-                    }
-                }
-            } else {
-                Box() {
+                    Text(
+                        text = "2",
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .padding(start = 9.dp, end = 9.dp)
+                    )
 
+                    RoundIconButton(imageVector = Icons.Default.Add,
+                        onClick = { /*TODO*/ })
                 }
             }
+
+            // Tip Row
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 3.dp, vertical = 12.dp)
+            ) {
+                Text(
+                    text = "Text",
+                    modifier = Modifier.align(alignment = Alignment.CenterVertically)
+                )
+                Spacer(modifier = Modifier.width(200.dp))
+
+                Text(
+                    text = "$33.00",
+                    modifier = Modifier.align(alignment = Alignment.CenterVertically)
+                )
+            }
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = "33%")
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                // Slider
+                Slider(value = sliderPositionState.value,
+                    onValueChange = { newVal ->
+                        sliderPositionState.value = newVal
+                        Log.d("test5", "BillForm: $newVal")
+                    })
+            }
+//            } else {
+//                Box() {
+//
+//                }
+//            }
         }
     }
 }
