@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hanyeop.mymovieapp.model.Movie
 import com.hanyeop.mymovieapp.navigation.MovieNavigation
 import com.hanyeop.mymovieapp.screens.home.MainContent
 import com.hanyeop.mymovieapp.ui.theme.MyMovieAppTheme
@@ -43,13 +44,13 @@ fun MyApp(content: @Composable () -> Unit) {
 }
 
 @Composable
-fun MovieRow(movie: String, onItemClick: (String) -> Unit = {}) {
+fun MovieRow(movie: Movie, onItemClick: (String) -> Unit = {}) {
     Card(
         modifier = Modifier
             .padding(4.dp)
             .fillMaxWidth()
             .height(130.dp)
-            .clickable { onItemClick(movie) },
+            .clickable { onItemClick(movie.id) },
         shape = RoundedCornerShape(corner = CornerSize(16.dp)),
         elevation = 6.dp
     ) {
@@ -68,7 +69,7 @@ fun MovieRow(movie: String, onItemClick: (String) -> Unit = {}) {
                     imageVector = Icons.Default.AccountBox, contentDescription = "Movie Image"
                 )
             }
-            Text(text = movie)
+            Text(text = movie.title)
         }
     }
 }

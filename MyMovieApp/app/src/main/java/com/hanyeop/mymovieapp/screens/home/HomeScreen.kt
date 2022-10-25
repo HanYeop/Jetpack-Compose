@@ -14,6 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.hanyeop.mymovieapp.MovieRow
+import com.hanyeop.mymovieapp.model.Movie
+import com.hanyeop.mymovieapp.model.getMovies
 import com.hanyeop.mymovieapp.navigation.MovieScreens
 
 @Composable
@@ -33,17 +35,7 @@ fun HomeScreen(navController: NavController){
 @Composable
 fun MainContent(
     navController: NavController,
-    movieList: List<String> = listOf(
-        "아바타",
-        "300",
-        "해리포터",
-        "아바타",
-        "3001111",
-        "해리포터4",
-        "아바타",
-        "3004",
-        "해리포터7",
-    )
+    movieList: List<Movie> = getMovies()
 ) {
     Column(modifier = Modifier.padding(12.dp)) {
         LazyColumn {
