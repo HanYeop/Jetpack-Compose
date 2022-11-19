@@ -10,7 +10,7 @@ class LogWorker(appContext: Context, workerParams: WorkerParameters)
 
     override fun doWork(): Result {
 
-        Log.d("test5", "doWork: 비동기 통신")
+        Log.d("test5", "doWork: 통신")
 
         return Result.success()
     }
