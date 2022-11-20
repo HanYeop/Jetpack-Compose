@@ -17,3 +17,9 @@ Jetpack Compose 제트팩 컴포즈 사용해보기 - (3-2) 레이아웃 (List) 
 ## PermissionEx
 
 Jetpack Compose 에서 권한 체크, 요청하기 - https://hanyeop.tistory.com/452
+
+## WorkManagerEx
+
+안드로이드 WorkManager 활용한 주기적 백그라운드 작업 https://hanyeop.tistory.com/451
+
+WorkManager에서 Dagger Hilt 사용하여 의존성 주입하기 https://hanyeop.tistory.com/453
